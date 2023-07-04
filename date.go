@@ -21,6 +21,13 @@ func (d Date) String() string {
 	return fmt.Sprintf("%04d-%02d-%02d", d.Year, d.Month, d.Day)
 }
 
+// Returns number of days between two dates
+func (d Date) Sub(v Date) int {
+	dd := time.Date(d.Year, time.Month(d.Month), d.Day, 0, 0, 0, 0, time.UTC)
+	vd := time.Date(v.Year, time.Month(v.Month), v.Day, 0, 0, 0, 0, time.UTC)
+	return int(dd.Sub(vd).Hours() / 24)
+}
+
 func ParseDate(s string) (Date, error) {
 	var (
 		y, m, d int64
