@@ -24,6 +24,15 @@ func (d Date) String() string {
 	return fmt.Sprintf("%04d-%02d-%02d", d.Year, d.Month, d.Day)
 }
 
+func (d Date) GoTime() time.Time {
+	return time.Date(d.Year, time.Month(d.Month), d.Day, 0, 0, 0, 0, time.UTC)
+}
+
+func FromGoTime(t time.Time) Date {
+	y, m, d := t.Date()
+	return Date{Year: y, Month: int(m), Day: d}
+}
+
 // Returns number of days between two dates
 func (d Date) Sub(v Date) int {
 	dd := time.Date(d.Year, time.Month(d.Month), d.Day, 0, 0, 0, 0, time.UTC)
