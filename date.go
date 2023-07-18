@@ -14,8 +14,11 @@ type Date struct {
 	Day   int
 }
 
-var usDateRe = regexp.MustCompile(`(\d{1,2})/(\d{1,2})/(\d{4})`)
-var pgDateRe = regexp.MustCompile(`(\d{4})-(\d{1,2})-(\d{1,2})`)
+var usDateRe = regexp.MustCompile(`(\d{1,2})\s*/\s*(\d{1,2})\s*/\s*(\d{4})`)
+var pgDateRe = regexp.MustCompile(`(\d{4})\s*-\s*(\d{1,2})\s*-\s*(\d{1,2})`)
+var txDateRe = regexp.MustCompile(`([A-Za-z]+)\s*(\d{1,2})[,\s]\s*(\d{4})`)
+
+var months = []string{"jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"}
 
 func (d Date) String() string {
 	return fmt.Sprintf("%04d-%02d-%02d", d.Year, d.Month, d.Day)
@@ -63,6 +66,25 @@ func ParseDate(s string) (Date, error) {
 		d, err = strconv.ParseInt(match[3], 10, 64)
 		if err != nil {
 			return Date{}, err
+		}
+	} else if match = txDateRe.FindStringSubmatch(s); match != nil && len(match[1]) > 2 {
+		ms := strings.ToLower(match[1])
+		ms = ms[:3]
+		for i, mm := range months {
+			if ms == mm {
+				m = int64(i) + 1
+			}
+		}
+		d, err = strconv.ParseInt(match[2], 10, 64)
+		if err != nil {
+			return Date{}, err
+		}
+		y, err = strconv.ParseInt(match[3], 10, 64)
+		if err != nil {
+			return Date{}, err
+		}
+		if m == 0 {
+			return Date{}, fmt.Errorf("Interval: Cannot parse month %#v", match[1])
 		}
 	} else {
 		return Date{}, fmt.Errorf("Interval: Cannot parse date %#v", s)
