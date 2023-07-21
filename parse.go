@@ -28,6 +28,11 @@ var unitMap = map[string]Interval{
 	"day":  Interval{Days: 1},
 	"days": Interval{Days: 1},
 
+	"businessday": Interval{WorkDays: 1},
+	"businessdays": Interval{WorkDays: 1},
+	"workday": Interval{WorkDays: 1},
+	"workdays": Interval{WorkDays: 1},
+
 	"w":     Interval{Days: 7},
 	"wk":    Interval{Days: 7},
 	"wks":   Interval{Days: 7},
@@ -105,6 +110,7 @@ func Parse(s string) (Interval, error) {
 			}
 			vi := int(v) * neg
 			out.Seconds += unit.Seconds * vi
+			out.WorkDays += unit.WorkDays * vi
 			out.Days += unit.Days * vi
 			out.Months += unit.Months * vi
 		}
