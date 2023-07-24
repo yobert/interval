@@ -28,10 +28,10 @@ var unitMap = map[string]Interval{
 	"day":  Interval{Days: 1},
 	"days": Interval{Days: 1},
 
-	"businessday": Interval{WorkDays: 1},
+	"businessday":  Interval{WorkDays: 1},
 	"businessdays": Interval{WorkDays: 1},
-	"workday": Interval{WorkDays: 1},
-	"workdays": Interval{WorkDays: 1},
+	"workday":      Interval{WorkDays: 1},
+	"workdays":     Interval{WorkDays: 1},
 
 	"w":     Interval{Days: 7},
 	"wk":    Interval{Days: 7},

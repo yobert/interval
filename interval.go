@@ -71,20 +71,20 @@ func (i Interval) String() string {
 // Add two intervals together
 func (i Interval) Add(v Interval) Interval {
 	return Interval{
-		Seconds: i.Seconds + v.Seconds,
+		Seconds:  i.Seconds + v.Seconds,
 		WorkDays: i.WorkDays + v.WorkDays,
-		Days:    i.Days + v.Days,
-		Months:  i.Months + v.Months,
+		Days:     i.Days + v.Days,
+		Months:   i.Months + v.Months,
 	}
 }
 
 // Multiply an interval by an integer value
 func (i Interval) MultInt(v int) Interval {
 	return Interval{
-		Seconds: i.Seconds * v,
+		Seconds:  i.Seconds * v,
 		WorkDays: i.WorkDays * v,
-		Days: i.Days * v,
-		Months: i.Months * v,
+		Days:     i.Days * v,
+		Months:   i.Months * v,
 	}
 }
 
@@ -131,7 +131,6 @@ func (i Interval) AddToDate(d Date) Date {
 			}
 		}
 	}
-
 
 	// Move days
 	if i.Days != 0 {

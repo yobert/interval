@@ -75,6 +75,10 @@ func isBusinessDay(v time.Time) bool {
 		if v.Equal(holidayDate(y, time.December, 25)) {
 			return false
 		}
+		// New years day next year
+		if v.Equal(holidayDate(y+1, 1, 1)) {
+			return false
+		}
 	}
 	return true
 }
@@ -110,7 +114,7 @@ func holidayWeekday(year int, month time.Month, day time.Weekday, count int) tim
 }
 
 func holidayWeekdayReverse(year int, month time.Month, day time.Weekday, count int) time.Time {
-	v := time.Date(year, month + 1, 1, 0, 0, 0, 0, time.UTC)
+	v := time.Date(year, month+1, 1, 0, 0, 0, 0, time.UTC)
 	v = v.AddDate(0, 0, -1)
 
 	vwd := v.Weekday()

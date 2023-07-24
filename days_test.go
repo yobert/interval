@@ -1,24 +1,24 @@
 package interval
 
 import (
+	"fmt"
 	"testing"
 	"time"
-	"fmt"
 )
 
 func TestHolidayWeekday(t *testing.T) {
 	tests := []struct {
-		Year int
-		Month time.Month
+		Year    int
+		Month   time.Month
 		Weekday time.Weekday
-		Count int
+		Count   int
 
 		Expect string
 	}{
 		{2023, time.February, time.Monday, 0, "2023-02-06"},
 		{2023, time.February, time.Wednesday, 0, "2023-02-01"},
 		{2023, time.February, time.Friday, 0, "2023-02-03"},
-		{2023, time.February, time.Monday, 2 , "2023-02-20"},
+		{2023, time.February, time.Monday, 2, "2023-02-20"},
 		{2023, time.February, time.Wednesday, 2, "2023-02-15"},
 		{2023, time.February, time.Friday, 2, "2023-02-17"},
 	}
@@ -36,7 +36,7 @@ func TestHolidayWeekday(t *testing.T) {
 			if !h.Equal(expect) {
 				t.Errorf("Expected %s %d of %s %d to be %s: Got %s",
 					test.Weekday,
-					test.Count + 1,
+					test.Count+1,
 					test.Month,
 					test.Year,
 					test.Expect,
@@ -49,10 +49,10 @@ func TestHolidayWeekday(t *testing.T) {
 
 func TestHolidayWeekdayReverse(t *testing.T) {
 	tests := []struct {
-		Year int
-		Month time.Month
+		Year    int
+		Month   time.Month
 		Weekday time.Weekday
-		Count int
+		Count   int
 
 		Expect string
 	}{
@@ -77,7 +77,7 @@ func TestHolidayWeekdayReverse(t *testing.T) {
 			if !h.Equal(expect) {
 				t.Errorf("Expected reverse %s %d of %s %d to be %s: Got %s",
 					test.Weekday,
-					test.Count + 1,
+					test.Count+1,
 					test.Month,
 					test.Year,
 					test.Expect,
