@@ -40,6 +40,40 @@ func (d Date) Sub(v Date) int {
 	return int(dd.Sub(vd).Hours() / 24)
 }
 
+func (d Date) After(dd Date) bool {
+	if d.Year > dd.Year {
+		return true
+	}
+	if d.Year < dd.Year {
+		return false
+	}
+	if d.Month > dd.Month {
+		return true
+	}
+	if d.Month < dd.Month {
+		return false
+	}
+	return d.Day > dd.Day
+}
+func (d Date) Before(dd Date) bool {
+	if d.Year < dd.Year {
+		return true
+	}
+	if d.Year > dd.Year {
+		return false
+	}
+	if d.Month < dd.Month {
+		return true
+	}
+	if d.Month > dd.Month {
+		return false
+	}
+	return d.Day < dd.Day
+}
+func (d Date) Equal(dd Date) bool {
+	return d.Year == dd.Year && d.Month == dd.Month && d.Day == dd.Day
+}
+
 func ParseDate(s string) (Date, error) {
 	var (
 		y, m, d int64
